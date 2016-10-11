@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmdi.dao.GPDao">
+
+
+	<resultMap id="appdata" type="com.cmdi.model.AppModel">
+		<result column="Date" property="date" />
+		<result column="Country" property="country" />
+		<result column="AppID" property="appId" />
+		<result column="AppName" property="appName" />
+		<result column="Category" property="category" />
+		<result column="Subcategory" property="subCategory" />
+		<result column="OverallRank" property="overrallRank" />
+		<result column="CategoryRank" property="categoryRank" />
+		<result column="SubcategoryRank" property="subCategoryRank" />
+		<result column="TotalRatings" property="totalRating" />
+		<result column="AverageRatings" property="averageRating" />
+		<result column="NoofDownloads" property="numOfDownLoads" />
+		<result column="Downloadrevenue" property="downLoadRevenue" />
+		<result column="Inapppurchasesrevenue" property="inApp_purchase_revenue" />
+		<result column="Advertisingrevenues" property="advertistingRevenues" />
+	</resultMap>
+	
+	<select id="getAllAppNameByMonth" parameterType="java.util.HashMap"
+		resultType="String">
+		 <![CDATA[
+		select distinct AppName from apptable app where app.Date like #{time}
+		]]>
+	</select>
+	
+	<select id="getAllCountryForAppName" parameterType="java.util.HashMap"
+		resultType="String">
+		 <![CDATA[
+		select distinct country from apptable
+		]]>
+	</select>
+	
+	<select id="getAppDataByAppNameAndDate" parameterType="java.util.HashMap"
+		resultMap="appdata">
+		select * from apptable app where app.AppName = #{appName} and app.Date like #{time}
+		order by app.Date desc
+	</select>
+	
+</mapper>
